@@ -18,10 +18,14 @@ public class ChangeRecord {
     private String username;
     private List<Change> changes;
 
+    private String timestamp;
+
     public ChangeRecord() {
         sitecode = "";
         username = "";
         changes = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
+        timestamp = sdf.format(new Date());
     }
 
     public String getSitecode() {
@@ -73,7 +77,11 @@ public class ChangeRecord {
         changes.add(i, c);
     }
 
-    public String generateMarkdown() {
+    public String getFilename() {
+        return sitecode + "_" + username.replace(" ", "_").replace(".", "") + timestamp + ".md";
+    }
+
+    public String generateFile() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("# Changes to " + sitecode + " by " + username + "\n");

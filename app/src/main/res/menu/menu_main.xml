@@ -3,12 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="nz.org.geonet.sitnotebook.MainActivity">
     <item
-        android:id="@+id/reset_menu"
-        android:orderInCategory="100"
-        android:title="Reset" />
-    <item
-        android:id="@+id/save_menu"
+        android:id="@+id/new_menu"
         android:orderInCategory="101"
-        android:title="Save"
+        android:title="New" />
+    <item
+        android:id="@+id/delete_menu"
+        android:orderInCategory="104"
+        android:title="Delete" />
+    <item
+        android:id="@+id/export_menu"
+        android:orderInCategory="105"
+        android:title="Export"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/load_item"
+        android:orderInCategory="103"
+        android:title="Load" />
 </menu>

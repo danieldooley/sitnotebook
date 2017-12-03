@@ -1,6 +1,5 @@
 package nz.org.geonet.sitnotebook;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import nz.org.geonet.sitnotebook.changeActivities.EquipmentChangeActivity;
+import nz.org.geonet.sitnotebook.changeActivities.NoteChangeActivity;
 
 
 public class NewChangeActivity extends AppCompatActivity {
@@ -27,7 +29,6 @@ public class NewChangeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         change_list = (ListView) findViewById(R.id.change_list);
-
         ArrayAdapter<String> change_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, change_types);
         change_list.setAdapter(change_adapter);
 

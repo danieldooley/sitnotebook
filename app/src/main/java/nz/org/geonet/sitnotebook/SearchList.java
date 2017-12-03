@@ -21,7 +21,6 @@ public class SearchList extends AppCompatActivity {
     ArrayList<String> displaylist;
     ListView lv;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +28,9 @@ public class SearchList extends AppCompatActivity {
 
         final Intent intent = getIntent();
 
-        setTitle("Site Code Search");
+        setTitle(intent.getStringExtra("SEARCH_TITLE"));
 
-        origlist = intent.getStringArrayListExtra("SITECODES");
+        origlist = intent.getStringArrayListExtra("VALUES");
         displaylist = new ArrayList<>();
 
         displaylist.addAll(origlist);
@@ -48,8 +47,9 @@ public class SearchList extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 displaylist.clear();
+                String comp = charSequence.toString().toLowerCase();
                 for (String s : origlist) {
-                    if (s.contains(charSequence)){
+                    if (s.toLowerCase().startsWith(comp)){
                         displaylist.add(s);
                     }
                 }
@@ -64,10 +64,11 @@ public class SearchList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String code = (String) lv.getItemAtPosition(i);
                 Intent result = new Intent();
-                result.putExtra("RETURN_SITECODE", code);
+                result.putExtra("RETURN_VALUE", code);
                 setResult(Activity.RESULT_OK, result);
                 finish();
             }
         });
     }
+
 }

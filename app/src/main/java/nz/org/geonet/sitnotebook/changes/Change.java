@@ -8,6 +8,7 @@ import android.os.Parcelable;
 
 public interface Change extends Parcelable {
 
+    String getChangeType();
     String getDisplayString();
     String generateMarkdownFragment();
     Class getEditingClass();

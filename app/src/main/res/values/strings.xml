@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SIT Notebook</string>
     <string name="action_settings">Settings</string>
+    <string name="APP_KEY">3ckkap8thmpaxjb</string>
+    <string name="sit_pdf_dir">/field-network/sit-pdfs</string>
+    <string name="sit_output_dir">/field-network/sit-change-records</string>
 </resources>

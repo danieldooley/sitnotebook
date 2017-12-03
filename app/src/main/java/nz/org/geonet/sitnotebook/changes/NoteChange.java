@@ -3,7 +3,7 @@ package nz.org.geonet.sitnotebook.changes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import nz.org.geonet.sitnotebook.NoteChangeActivity;
+import nz.org.geonet.sitnotebook.changeActivities.NoteChangeActivity;
 
 /**
  * Created by ddooley on 30/11/17.
@@ -12,6 +12,8 @@ import nz.org.geonet.sitnotebook.NoteChangeActivity;
 public class NoteChange implements Change {
 
     private String note;
+
+    NoteChange(){}
 
     public NoteChange(String note) {
         this.note = note;
@@ -65,5 +67,10 @@ public class NoteChange implements Change {
     @Override
     public Class getEditingClass() {
         return NoteChangeActivity.class;
+    }
+
+    @Override
+    public String getChangeType() {
+        return "";
     }
 }

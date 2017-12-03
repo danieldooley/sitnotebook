@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nz.org.geonet.sitnotebook">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,8 +30,24 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".SearchList" />
-        <activity android:name=".EquipmentChangeActivity" />
-        <activity android:name=".NoteChangeActivity"></activity>
+        <activity android:name=".changeActivities.EquipmentChangeActivity" />
+        <activity android:name=".changeActivities.NoteChangeActivity" />
+        <!-- Dropbox AuthActivity -->
+        <activity
+            android:name="com.dropbox.core.android.AuthActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask">
+            <intent-filter>
+
+                <!-- Insert your app key after “db-  ...” -->
+                <data android:scheme="db-3ckkap8thmpaxjb" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

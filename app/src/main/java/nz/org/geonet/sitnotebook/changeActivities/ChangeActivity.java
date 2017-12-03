@@ -1,36 +1,50 @@
-package nz.org.geonet.sitnotebook;
+package nz.org.geonet.sitnotebook.changeActivities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import nz.org.geonet.sitnotebook.changes.NoteChange;
+import nz.org.geonet.sitnotebook.R;
+import nz.org.geonet.sitnotebook.changes.Change;
 
-public class NoteChangeActivity extends AppCompatActivity {
+/**
+ * Created by ddooley on 1/12/17.
+ */
+
+public abstract class ChangeActivity<C extends Change> extends AppCompatActivity {
+
+    int layout;
+
+    String changeType;
 
     int editmode;
+    
+    Intent intent;
 
     Button done_button;
-    TextInputEditText note;
-
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_change);
+        setContentView(layout);
 
-        note = findViewById(R.id.note_text);
+        intent = getIntent();
+
         done_button = findViewById(R.id.done_button);
+        findViews();
 
-        Intent intent = getIntent();
         editmode = intent.getIntExtra("EDIT", -1);
         if (editmode >= 0){
-            NoteChange nc = intent.getParcelableExtra("EDIT_CHANGE");
-            note.setText(nc.getNote());
+            C c = intent.getParcelableExtra("EDIT_CHANGE");
+            changeType = c.getChangeType();
+            setupEdit(c);
+        } else {
+            changeType = intent.getStringExtra("CHANGE_TYPE");
         }
 
         done_button.setOnClickListener(new View.OnClickListener() {
@@ -39,23 +53,14 @@ public class NoteChangeActivity extends AppCompatActivity {
                 if (!validate()){
                     return;
                 }
-                NoteChange nc = new NoteChange(note.getText().toString());
+                C c = createChange();
                 Intent result = new Intent();
-                result.putExtra("CHANGE", nc);
+                result.putExtra("CHANGE", c);
                 result.putExtra("EDIT", editmode);
                 setResult(Activity.RESULT_OK, result);
                 finish();
             }
         });
-
-    }
-
-    public boolean validate() {
-        if (note.getText().length() == 0) {
-            noticeDialog("Please enter a note", "Missing Serial Number");
-            return false;
-        }
-        return true;
     }
 
     public void noticeDialog(String message, String title){
@@ -65,6 +70,14 @@ public class NoteChangeActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setNeutralButton("Ok", null).show();
     }
+    
+    abstract boolean validate();
+
+    abstract void findViews();
+    
+    abstract void setupEdit(C c);
+    
+    abstract C createChange();
 
     @Override
     public void onBackPressed() {

@@ -3,7 +3,7 @@ package nz.org.geonet.sitnotebook.changes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import nz.org.geonet.sitnotebook.EquipmentChangeActivity;
+import nz.org.geonet.sitnotebook.changeActivities.EquipmentChangeActivity;
 
 /**
  * Created by ddooley on 29/11/17.
@@ -18,6 +18,8 @@ public class EquipmentChange implements Change {
     private String manufacturer;
     private String model;
     private String date;
+
+    EquipmentChange(){}
 
     public EquipmentChange(String change_type, String asset_num, String serial_num, String manufacturer, String model, String date) {
         this.change_type = change_type;
@@ -77,7 +79,7 @@ public class EquipmentChange implements Change {
         sb.append("## Equipment - " + change_type + ":\n");
 
         if (asset_num.length() > 0) {
-            sb.append("**Asset Number:** `" + asset_num + "`\n");
+            sb.append("**Asset Number:** `" + (asset_num.length() > 0 ? asset_num : "n/a") + "`\n");
         }
         sb.append("**Serial Number:** `" + serial_num + "`\n");
         sb.append("**Manufacturer:** `" + manufacturer + "`\n");
@@ -98,7 +100,8 @@ public class EquipmentChange implements Change {
         return EquipmentChangeActivity.class;
     }
 
-    public String getChange_type() {
+    @Override
+    public String getChangeType() {
         return change_type;
     }
 
